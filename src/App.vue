@@ -2,31 +2,35 @@
   <h1>{{ title }}</h1>
   <button @click="start" :disabled="isPlaying">play</button>
   <block v-if="isPlaying" :delay="delay" @end="endGame" />
-  <p>Reaction time: {{ score }} ms</p>
+  <Result v-if="showResult" :score="score"/>
 </template>
 
 <script>
 import Block from "./components/Block.vue";
+import Result from "./components/Result.vue";
 
 export default {
   name: "App",
-  components: { Block },
+  components: { Block, Result },
   data() {
     return {
-      title: "Bartah Reaction Timer",
+      title: "Reaction Timer",
       isPlaying: false,
       delay: null,
       score: null,
+      showResult: false,
     };
   },
   methods: {
     start() {
       this.delay = 2000 + Math.random() * 5000;
       this.isPlaying = true;
+      this.showResult = false
     },
     endGame(reactionTime) {
       this.score = reactionTime;
       this.isPlaying = false;
+      this.showResult = true
     },
   },
 };
@@ -41,8 +45,11 @@ export default {
   color: #444;
   margin: 60px;
 }
-/* button {
-  background: green;
+h1{
+  font-weight: bolder;
+}
+button {
+  background: #0faf87;
   color: white;
   width: 70px;
   padding: 10px;
@@ -50,5 +57,10 @@ export default {
   border: none;
   font-weight: bold;
   cursor: pointer; 
-} */
+  letter-spacing: 2px;
+}
+button[disabled]{
+  opacity: 0.2;
+  cursor: not-allowed;
+}
 </style>

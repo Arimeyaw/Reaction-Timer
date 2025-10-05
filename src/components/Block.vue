@@ -39,7 +39,7 @@ export default {
 <style>
 .block {
   width: 400px;
-  background: goldenrod;
+  background: #0faf87;
   color: white;
   text-align: center;
   border-radius: 10px;
