@@ -1,17 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>{{ title }}</h1>
+  <button @click="start" :disabled="isPlaying">play</button>
+  <block v-if="isPlaying" :delay="delay" @end="endGame" />
+  <p>Reaction time: {{ score }} ms</p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Block from "./components/Block.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { Block },
+  data() {
+    return {
+      title: "Bartah Reaction Timer",
+      isPlaying: false,
+      delay: null,
+      score: null,
+    };
+  },
+  methods: {
+    start() {
+      this.delay = 2000 + Math.random() * 5000;
+      this.isPlaying = true;
+    },
+    endGame(reactionTime) {
+      this.score = reactionTime;
+      this.isPlaying = false;
+    },
+  },
+};
 </script>
 
 <style>
@@ -20,7 +38,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #444;
+  margin: 60px;
 }
+/* button {
+  background: green;
+  color: white;
+  width: 70px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer; 
+} */
 </style>
